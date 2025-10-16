@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Chapitas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-tags me-2"></i>
+                Sistema Chapitas
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-user me-1"></i>
+                        <span id="username-display">Usuario</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="logout-btn">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div id="login-section" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="login-form">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="username" required value="Ingrese Usuario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" required value="Ingrese Contraseña">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-section" class="container-fluid" style="display: none;">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-tab="inventario">
+                                <i class="fas fa-boxes me-2"></i>
+                                Inventario
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="pedidos">
+                                <i class="fas fa-clipboard-list me-2"></i>
+                                Pedidos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="despachos">
+                                <i class="fas fa-truck me-2"></i>
+                                Despachos y Abonos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Inventario Tab -->
+                <div id="inventario-tab" class="tab-content">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><i class="fas fa-boxes me-2"></i>Inventario</h1>
+                        <button class="btn btn-primary" id="add-inventario-btn" style="display: none;">
+                            <i class="fas fa-plus me-2"></i>Agregar Stock
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="inventario-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Medida</th>
+                                    <th>Tipo de Chapa</th>
+                                    <th>Material</th>
+                                    <th>Cantidad Disponible</th>
+                                    <th>Comentarios</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventario-body">
+                                <!-- Los datos se cargarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pedidos Tab -->
+                <div id="pedidos-tab" class="tab-content" style="display: none;">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><i class="fas fa-clipboard-list me-2"></i>Pedidos</h1>
+                        <button class="btn btn-primary" id="add-pedido-btn">
+                            <i class="fas fa-plus me-2"></i>Crear Pedido
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="pedidos-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID Pedido</th>
+                                    <th>Cantidad</th>
+                                    <th>Medida</th>
+                                    <th>Tipo</th>
+                                    <th>Material</th>
+                                    <th>Cliente/Diseño</th>
+                                    <th>Estado</th>
+                                    <th>Comentarios</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pedidos-body">
+                                <!-- Los datos se cargarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Despachos Tab -->
+                <div id="despachos-tab" class="tab-content" style="display: none;">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><i class="fas fa-truck me-2"></i>Despachos y Abonos</h1>
+                        <button class="btn btn-primary" id="add-despacho-btn">
+                            <i class="fas fa-plus me-2"></i>Agregar Despacho o Abono
+                        </button>
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="despachos-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th data-sort="idPedido">ID Pedido</th>
+                                    <th data-sort="clienteDiseno">Cliente/Diseño</th>
+                                    <th data-sort="cantidadChapas">Cantidad</th>
+                                    <th data-sort="medida">Medida</th>
+                                    <th data-sort="tipoChapa">Tipo</th>
+                                    <th data-sort="tipoActividad">Tipo Actividad</th>
+                                    <th data-sort="costeAbono">Coste Abono</th>
+                                    <th data-sort="estadoAbono">Estado Abono</th>
+                                    <th>Comentarios</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="despachos-body">
+                                <!-- Los datos se cargarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Resumen de Abonos Pendientes y Fabricación -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="fas fa-file-invoice-dollar me-2"></i>Resumen de Abonos
+                                Pendientes
+                            </h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-warning">
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th class="text-end">Cantidad de Actividades Pendientes</th>
+                                            <th class="text-end">Deuda Total Pendiente</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Abonos No Pagados</td>
+                                            <td id="total-abonos-pendientes" class="text-end">0</td>
+                                            <td id="valor-total-pendiente" class="text-end">$0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="fas fa-industry me-2"></i>Resumen de Fabricación</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th class="text-end">Cantidad de pedidos</th>
+                                            <th class="text-end">Deuda Total Pendiente</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pedidos en Fabricación (El coste de chapita esta fijado en $27)</td>
+                                            <td id="total-fabricacion-pendientes" class="text-end">0</td>
+                                            <td id="valor-total-fabricacion" class="text-end">$0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modales -->
+                <!-- Modal para agregar/editar inventario -->
+                <div class="modal fade" id="inventarioModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="inventarioModalTitle">Agregar Stock al Inventario</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="inventario-form">
+                                    <input type="hidden" id="inventario-id">
+                                    <div class="mb-3">
+                                        <label for="medida" class="form-label">Medida</label>
+                                        <select class="form-select" id="medida" required>
+                                            <option value="">Seleccionar medida</option>
+                                            <option value="25mm">25mm</option>
+                                            <option value="37mm">37mm</option>
+                                            <option value="56mm">56mm</option>
+                                            <option value="58mm">58mm</option>
+                                            <option value="75mm">75mm</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tipo-chapa" class="form-label">Tipo de Chapa</label>
+                                        <select class="form-select" id="tipo-chapa" required>
+                                            <option value="">Seleccionar tipo</option>
+                                            <option value="Alfiler">Alfiler</option>
+                                            <option value="Imán">Imán</option>
+                                            <option value="Espejo">Espejo</option>
+                                            <option value="Imán Destapador">Imán Destapador</option>
+                                            <option value="Llavero destapador">Llavero destapador</option>
+                                            <option value="Llavero">Llavero</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="material-chapa" class="form-label">Material de Chapa</label>
+                                        <select class="form-select" id="material-chapa" required>
+                                            <option value="">Seleccionar material</option>
+                                            <option value="Metalizada">Metalizada</option>
+                                            <option value="Plástica">Plástica</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cantidad-disponible" class="form-label">Cantidad a Agregar</label>
+                                        <input type="number" class="form-control" id="cantidad-disponible" min="1"
+                                            required>
+                                        <div class="form-text">Si ya existe un item igual, la cantidad se sumará al
+                                            stock existente</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="comentarios-inv" class="form-label">Comentarios</label>
+                                        <textarea class="form-control" id="comentarios-inv" rows="3"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="save-inventario">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para agregar/editar pedido -->
+                <div class="modal fade" id="pedidoModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="pedidoModalTitle">Crear Pedido</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="pedido-form">
+                                    <input type="hidden" id="pedido-id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="cantidad-chapitas" class="form-label">Cantidad de
+                                                    Chapitas</label>
+                                                <input type="number" class="form-control" id="cantidad-chapitas" min="1"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="medida-pedido" class="form-label">Medida</label>
+                                                <select class="form-select" id="medida-pedido" required>
+                                                    <option value="">Seleccionar medida</option>
+                                                    <option value="25mm">25mm</option>
+                                                    <option value="37mm">37mm</option>
+                                                    <option value="56mm">56mm</option>
+                                                    <option value="58mm">58mm</option>
+                                                    <option value="75mm">75mm</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tipo-chapa-pedido" class="form-label">Tipo de
+                                                    Chapa</label>
+                                                <select class="form-select" id="tipo-chapa-pedido" required>
+                                                    <option value="">Seleccionar tipo</option>
+                                                    <option value="Alfiler">Alfiler</option>
+                                                    <option value="Imán">Imán</option>
+                                                    <option value="Espejo">Espejo</option>
+                                                    <option value="Imán Destapador">Imán Destapador</option>
+                                                    <option value="Llavero destapador">Llavero destapador</option>
+                                                    <option value="Llavero">Llavero</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="material-chapa-pedido" class="form-label">Material de
+                                                    Chapa</label>
+                                                <select class="form-select" id="material-chapa-pedido" required>
+                                                    <option value="">Seleccionar material</option>
+                                                    <option value="Metalizada">Metalizada</option>
+                                                    <option value="Plástica">Plástica</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cliente-diseno" class="form-label">Cliente/Diseño</label>
+                                        <input type="text" class="form-control" id="cliente-diseno" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="estado-pedido" class="form-label">Estado de Pedido</label>
+                                        <select class="form-select" id="estado-pedido" required>
+                                            <option value="No Comenzadas">No Comenzadas</option>
+                                            <option value="En Producción">En Producción</option>
+                                            <option value="Entregadas">Entregadas</option>
+                                            <option value="Canceladas">Canceladas</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="comentarios-pedido" class="form-label">Comentarios</label>
+                                        <textarea class="form-control" id="comentarios-pedido" rows="3"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="save-pedido">Guardar
+                                    Pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para agregar/editar despacho -->
+                <div class="modal fade" id="despachoModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="despachoModalTitle">Agregar Despacho/Abono</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="despacho-form">
+                                    <input type="hidden" id="despacho-id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="id-pedido-despacho" class="form-label">ID de Pedido
+                                                    *</label>
+                                                <input type="text" class="form-control" id="id-pedido-despacho"
+                                                    placeholder="Ej: PED0001" required>
+                                                <div class="form-text">
+                                                    <span id="pedido-status" class="text-muted">Ingresa el ID del
+                                                        pedido</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="cliente-diseno-despacho"
+                                                    class="form-label">Cliente/Diseño</label>
+                                                <input type="text" class="form-control" id="cliente-diseno-despacho"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="cantidad-chapas-despacho" class="form-label">Cantidad de
+                                                    Chapas</label>
+                                                <input type="number" class="form-control" id="cantidad-chapas-despacho"
+                                                    min="1" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="medida-despacho" class="form-label">Medida</label>
+                                                <input type="text" class="form-control" id="medida-despacho" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="tipo-chapa-despacho" class="form-label">Tipo de
+                                                    Chapa</label>
+                                                <input type="text" class="form-control" id="tipo-chapa-despacho"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- El resto del formulario se mantiene igual -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tipo-actividad" class="form-label">Tipo de Actividad</label>
+                                                <select class="form-select" id="tipo-actividad" required>
+                                                    <option value="Fabricando Pedido">Fabricando Pedido</option>
+                                                    <option value="Imprimir">Imprimir</option>
+                                                    <option value="Comprar Insumo">Comprar Insumo</option>
+                                                    <option value="Ida por Materiales">Ida por Materiales</option>
+                                                    <option value="Entrega de Pedido">Entrega de Pedido</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="coste-abono" class="form-label">Coste de Abono</label>
+                                                <input type="number" class="form-control" id="coste-abono" min="0"
+                                                    step="1" value="4000" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="estado-abono" class="form-label">Estado de Abono</label>
+                                        <select class="form-select" id="estado-abono" required>
+                                            <option value="No Pagado">No Pagado</option>
+                                            <option value="Pagado">Pagado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="comentarios-despacho" class="form-label">Comentarios</label>
+                                        <textarea class="form-control" id="comentarios-despacho" rows="3"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="save-despacho">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container para mensajes toast -->
+                <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+                </div>
+
+                <!-- Scripts -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="js/app.js"></script>
+</body>
+
+</html>

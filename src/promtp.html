@@ -1,0 +1,20 @@
+Hola, estoy diseñando un sistema de inventarios para controlar chapitas y manejar elementos logisticos para el despacho de pedidos de chapitas.
+
+El sistema lo quiero construir con lo siguiente:
+
+- Frontend: HTML5, CSS, Boostrap 5 y JavaScript.
+- Backend: Node.Js
+- Base de datos: Mongo DB (Usar un cluster en Atlas Mongo DB)
+
+Requiero lo siguiente para el sistema:
+- Tenga inicio de sesión y tenga acceso para Lectura (Solo ver datos de los inventarios) y Administrador (Que puedan editar elementos dentro del codigo).
+- Una vez ingresado al sistema, se vean 3 pestañas que digan ("Inventario", "Pedidos", "Despachos y Abonos"), al hacer clic a estas pestañas, muestre la información correspondiente.
+- Al ingresar al sistema, en la pestaña de "Inventario" se visualice un dashboard con una planilla de stock de chapitas disponibles, esta planilla es una tabla que indique lo siguiente: 
+    (Medida, Tipo de Chapa, Material de Chapa, Cantidad Disponible (Indicar de color Rojo los números), Comentarios) y al lado botones de Editar/Eliminar.
+- Que solo los usuarios administradores puedan ingresar, editar y eliminar elementos ingresados a la tabla de "inventario".
+- Para la pestaña de pedidos, se pueda mediante un boton que diga "Añadir Pedido" y que se generé un dato para la siguiente tabla:
+    (ID Pedido (Se generé automaticamente cuando ya se creé un pedido), Cantidad de Chapitas, Medida, Tipo de Chapa, Material de Chapa, Cliente/Diseño, Estado de Pedido (No Comenzadas, En Producción, Entregadas, Canceladas),Comentarios) y botones al lado de Editar/Eliminar.
+- Para la pestaña de "Despachos y Abonos", se visualice tambien una tabla que muestre lo siguiente y relacionado a la pestaña de pedidos:
+    (ID de Pedido (Este no se generara automaticamente, lo escribira el mismo registrador), Cliente/Diseño, Cantidad de Chapas, Medida, Tipo de Chapa, Tipo de Actividad (Se deba seleccionar en Imprimir, Comprar Insumo, Entrega de Pedido), coste de abono, Estado de Abono (Se deba seleccionar en Pagado, No Pagado, Cancelado), Comentarios y botones de editar y eliminar registro)
+
+    Quiero que me ayudes a diseñar este proyecto paso a paso como si no supiera programar. Ademas, quiero enfocarme solo como seria el resultado si se simulase en un hosting web, pero lo probare con el servidor de node para pruebas y mas tarde te expreso donde subire este proyecto para que me ayudes a adaptarlo.
